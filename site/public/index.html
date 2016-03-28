@@ -31,6 +31,11 @@
         <div class="navbar-header">
           <a class="navbar-brand" href="#">Button Wars</a>
         </div>
+        <div id="navbar">
+          <ul class="nav navbar-nav">
+            <li><a id='loginLink' href='login.html'>Log In</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
       </div>
     </nav>
 
@@ -49,6 +54,8 @@
             <p>Clicks: <span id="orangeButtonClickCount">0</span></p>
           </div>
         </div><!-- /.row -->
+
+        <div id="messages" class="alert hidden" role="alert"></div>
       </div>
 
     </div><!-- /.container -->
@@ -72,13 +79,21 @@
       function incrementBlue() {
         blueButtonRef.child("clickCount").transaction(function(current_value) {
           return current_value + 1;
-        });
+        }, clickCountTransactionCB);
       }
 
       function incrementOrange() {
         orangeButtonRef.child("clickCount").transaction(function(current_value) {
           return current_value + 1;
-        });
+        }, clickCountTransactionCB);
+      }
+
+
+      function clickCountTransactionCB(error, committed, snapshot) {
+        if (error) {
+          console.log('Transaction failed abnormally!', error);
+          showMessage("danger", error);
+        }
       }
 
       // Update the click count text whenever the click count changes
@@ -90,15 +105,39 @@
       });
 
       // Create a callback which logs the current auth state
+      ref.onAuth(authDataCallback);
       function authDataCallback(authData) {
         if (authData) {
           console.log("User " + authData.uid + " is logged in with " + authData.provider);
+          $('#loginLink').replaceWith("<a id='logoutLink' href=''>Log Out</a>");
         } else {
           console.log("User is logged out");
+          $('#logoutLink').replaceWith("<a id='loginLink'>Log In</a>");
         }
       }
 
-      ref.onAuth(authDataCallback);
+      // Log the user out when they click the "log out" button
+      $('#logoutLink').click(function() {
+        ref.unauth();
+      });
+
+      function showMessage(messageType, messageHTML) {
+        $('#messages').removeClass("hidden");
+        $('#messages').removeClass("alert-success");
+        $('#messages').removeClass("alert-danger");
+
+        if (messageType == "success") {
+          $('#messages').addClass("alert-success");
+        } else {
+          $('#messages').addClass("alert-danger");
+        }
+
+        $('#messages').html(messageHTML);
+      }
+
+      function hideMessage() {
+        $('#messages').addClass("hidden");
+      }
 
     </script>
 

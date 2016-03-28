@@ -1,0 +1,87 @@
+/* Color Palette:
+ * https://color.adobe.com/Plan-Scheme-v2-color-theme-7823610/
+ * Dark blue: #1D5A73
+ * Light blue: #6DB6C2
+ * Light orange: #F1A356
+ * Dark orange: #EF583F
+ * Off-white: #F2F2F2
+ */
+
+body {
+  background-color: #F2F2F2;
+  padding-top: 50px;
+}
+
+.mainContent {
+  text-align: center;
+}
+
+nav.navbar {
+  background-color: #1D5A73;
+  background-image: none;
+}
+
+.navbar-inverse .navbar-brand {
+  color: #F2F2F2;
+}
+
+form {
+  text-align: left;
+}
+
+#emailAddress, #password {
+  border-radius: 2px;
+}
+
+input[type="email"], input[type="password"] {
+  border: 2px solid #C9C9C9;
+}
+
+input[type="email"]:hover, input[type="password"]:hover {
+  border: 2px solid #8c8c8c;
+}
+
+input[type="email"]:focus, input[type="password"]:focus {
+  border: 2px solid #52bad5;
+  box-shadow: none;
+}
+
+.input-group {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+/* Signup form styles */
+#signupButton {
+  background-color: #EF583F;
+  color: #F2F2F2;
+  border-radius: 3px;
+  border: none;
+  padding: 8px 20px;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+#signupButton:hover {
+  background-color: #ef493f;
+}
+
+.warButton {
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  color: #F2F2F2;
+  padding: 20px;
+  font-size: 1.5em;
+}
+.warButton:focus {outline:0;}
+
+#blueButton {background-color: #1D5A73;}
+#blueButton:hover {background-color: #1d4c73;}
+#orangeButton {background-color: #EF583F;}
+#orangeButton:hover {background-color: #ef493f;}

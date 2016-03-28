@@ -1,2 +1,2 @@
 # buttonWars
-A simple app to test Firebase.
+Put Firebase through its paces

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Log In</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- buttonWars CSS -->
+    <link href="/css/buttonWars.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="mainContent">
+        <h1>Button Wars</h1>
+        <p class="lead">Compete with other users to decide which button is better.</p>
+
+        <form id="createAccountForm">
+          <label for="emailAddress">Email</label>
+          <div class="input-group">
+            <input id="emailAddress" class="form-control" type="email" name="email" required />
+          </div>
+
+          <label for="password">Password</label>
+          <div class="input-group">
+            <input id="password" class="form-control" type="password" name="password" required />
+          </div>
+
+          <div id="messages" class="alert hidden" role="alert"></div>
+
+          <div class="input-group">
+            <input id="signupButton" type="submit" value="Log In">
+          </div>
+        </form>
+
+      </div><!-- /.mainContent -->
+    </div><!-- /.container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
+    <!-- Firebase -->
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+
+    <!-- buttonWars JavaScript -->
+    <script>
+      var ref = new Firebase("https://buttonwars.firebaseio.com");
+      hideMessage();
+
+      // When the user clicks the "create account" button...
+      $('#createAccountForm').submit(function () {
+        // Or with an email/password combination
+        ref.authWithPassword({
+          email    : $('#emailAddress').val(),
+          password : $('#password').val()
+        }, authWithPasswordCB);
+
+        // Prevent the browser from redirecting
+        return false;
+      });
+
+      // Callback function to handle the result of the createUser() call
+      function authWithPasswordCB(error, authData) {
+        // If we got an error, display the error message
+        if (error) {
+          console.log("Error logging in:", error);
+          showMessage("danger", error);
+        }
+
+        // Otherwise, display a success message and go back to the homepage
+        else {
+          console.log("Successfully logged in with user id:", authData.uid);
+          showMessage("success", "<b>Success!</b> Login successful.");
+          window.setTimeout(function () {
+            window.location.href = "/";
+          }, 1000);
+        }
+      }
+
+      function showMessage(messageType, messageHTML) {
+        $('#messages').removeClass("hidden");
+        $('#messages').removeClass("alert-success");
+        $('#messages').removeClass("alert-danger");
+
+        if (messageType == "success") {
+          $('#messages').addClass("alert-success");
+        } else {
+          $('#messages').addClass("alert-danger");
+        }
+
+        $('#messages').html(messageHTML);
+      }
+
+      function hideMessage() {
+        $('#messages').addClass("hidden");
+      }
+
+    </script>
+  </body>
+</html>

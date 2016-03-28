@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Button Wars</title>
+    <title>Create Account</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -30,7 +30,7 @@
         <h1>Button Wars</h1>
         <p class="lead">Compete with other users to decide which button is better.</p>
 
-        <form>
+        <form id="createAccountForm">
           <label for="emailAddress">Email</label>
           <div class="input-group">
             <input id="emailAddress" class="form-control" type="email" name="email" required />
@@ -41,8 +41,10 @@
             <input id="password" class="form-control" type="password" name="password" required />
           </div>
 
+          <div id="messages" class="alert hidden" role="alert"></div>
+
           <div class="input-group">
-            <input id="signupButton" onclick="createAccount()" type="submit" value="Create My Account">
+            <input id="signupButton" type="submit" value="Create My Account">
           </div>
         </form>
 
@@ -60,20 +62,54 @@
 
     <!-- buttonWars JavaScript -->
     <script>
-      var ref = new Firebase("https://trswany.firebaseio.com");
+      var ref = new Firebase("https://buttonwars.firebaseio.com");
+      hideMessage();
 
-      function createAccount() {
+      // When the user clicks the "create account" button...
+      $('#createAccountForm').submit(function () {
         ref.createUser({
-          email    : "trswany@gmail.com",
-          password : "correcthorsebatterystaple"
-        }, function(error, userData) {
-          if (error) {
-            console.log("Error creating user:", error);
-          } else {
-            console.log("Successfully created user account with uid:", userData.uid);
+          email    : $('#emailAddress').val(),
+          password : $('#password').val()
+        }, createUserCB);
+
+        // Prevent the browser from redirecting
+        return false;
+      });
+
+      // Callback function to handle the result of the createUser() call
+      function createUserCB(error, userData) {
+        // If we got an error, display the error message
+        if (error) {
+          console.log("Error creating user:", error);
+          showMessage("danger", error);
+        }
+
+        // Otherwise, display a success message and go back to the homepage
+        else {
+          console.log("Successfully created user account with uid:", userData.uid);
+          showMessage("success", "<b>Success!</b> Your account was created.");
+          window.setTimeout(function () {
             window.location.href = "/";
-          }
-        });
+          }, 1000);
+        }
+      }
+
+      function showMessage(messageType, messageHTML) {
+        $('#messages').removeClass("hidden");
+        $('#messages').removeClass("alert-success");
+        $('#messages').removeClass("alert-danger");
+
+        if (messageType == "success") {
+          $('#messages').addClass("alert-success");
+        } else {
+          $('#messages').addClass("alert-danger");
+        }
+
+        $('#messages').html(messageHTML);
+      }
+
+      function hideMessage() {
+        $('#messages').addClass("hidden");
       }
 
     </script>

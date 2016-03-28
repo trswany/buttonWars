@@ -65,9 +65,9 @@
 
     <!-- buttonWars JavaScript -->
     <script>
-      var ref = new Firebase("https://trswany.firebaseio.com");
-      var blueButtonRef = new Firebase("https://trswany.firebaseio.com/buttons/blue");
-      var orangeButtonRef = new Firebase("https://trswany.firebaseio.com/buttons/orange");
+      var ref = new Firebase("https://buttonwars.firebaseio.com");
+      var blueButtonRef = new Firebase("https://buttonwars.firebaseio.com/buttons/blue");
+      var orangeButtonRef = new Firebase("https://buttonwars.firebaseio.com/buttons/orange");
 
       function incrementBlue() {
         blueButtonRef.child("clickCount").transaction(function(current_value) {

@@ -1,68 +1,81 @@
-<html>
-<head>
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
 
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+    <title>Button Wars</title>
 
-  <!-- Firebase -->
-  <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-  <!-- buttonWars -->
-  <link rel="stylesheet" type="text/css" href="buttonWars.css">
-</head>
-<body>
+    <!-- buttonWars CSS -->
+    <link href="/css/buttonWars.css" rel="stylesheet">
 
-  <div class="container-fluid">
-    <div class="mainContent">
-      <h1>Button Wars</h1>
-      <p class="lead">Compete with other users to decide which button is better.</p>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
 
-      <form>
-        <label for="emailAddress">Email</label>
-        <div class="input-group">
-          <input id="emailAddress" class="form-control" type="email" name="email" required />
-        </div>
+    <div class="container">
+      <div class="mainContent">
+        <h1>Button Wars</h1>
+        <p class="lead">Compete with other users to decide which button is better.</p>
 
-        <label for="password">Password</label>
-        <div class="input-group">
-          <input id="password" class="form-control" type="password" name="password" required />
-        </div>
+        <form>
+          <label for="emailAddress">Email</label>
+          <div class="input-group">
+            <input id="emailAddress" class="form-control" type="email" name="email" required />
+          </div>
 
-        <div class="input-group">
-          <input id="signupButton" onclick="createAccount()" type="submit" value="Create My Account">
-        </div>
-      </form>
-    </div>
-  </div><!-- /.container -->
+          <label for="password">Password</label>
+          <div class="input-group">
+            <input id="password" class="form-control" type="password" name="password" required />
+          </div>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+          <div class="input-group">
+            <input id="signupButton" onclick="createAccount()" type="submit" value="Create My Account">
+          </div>
+        </form>
 
-  <!-- buttonWars JavaScript -->
-  <script>
-    var ref = new Firebase("https://trswany.firebaseio.com");
+      </div><!-- /.mainContent -->
+    </div><!-- /.container -->
 
-    function createAccount() {
-      ref.createUser({
-        email    : "trswany@gmail.com",
-        password : "correcthorsebatterystaple"
-      }, function(error, userData) {
-        if (error) {
-          console.log("Error creating user:", error);
-        } else {
-          console.log("Successfully created user account with uid:", userData.uid);
-          window.location.href = "/";
-        }
-      });
-    }
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 
-  </script>
-</body>
+    <!-- Firebase -->
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+
+    <!-- buttonWars JavaScript -->
+    <script>
+      var ref = new Firebase("https://trswany.firebaseio.com");
+
+      function createAccount() {
+        ref.createUser({
+          email    : "trswany@gmail.com",
+          password : "correcthorsebatterystaple"
+        }, function(error, userData) {
+          if (error) {
+            console.log("Error creating user:", error);
+          } else {
+            console.log("Successfully created user account with uid:", userData.uid);
+            window.location.href = "/";
+          }
+        });
+      }
+
+    </script>
+  </body>
 </html>
